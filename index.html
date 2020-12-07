@@ -23,7 +23,12 @@
       </button>
     </div>
 
-    <div class="modal_overlay" id="duomenu_modalas">
+
+
+
+
+<!-- Newtask modal modal -->
+    <div class="modal_overlay" id="newTaskModal">
       <div class="modal">
         <label for="taskNotes">Enter task: </label>
         <textarea id="taskNotes" /> </textarea>
@@ -31,7 +36,8 @@
         <span class="closeModal"><img src="/x.svg" alt=""></span>
       </div>
     </div>
-    <div class="modal_overlay" id="trinti_modalas">
+    <!-- Edit modal -->
+    <div class="modal_overlay" id="editTaskModal">
       <div class="modal">
         <label for="editNotes">Edit task :</label>
         <textarea id="editNotes" /> </textarea>
@@ -39,11 +45,20 @@
         <span class="closeEditModal"><img src="/x.svg" alt=""></span>
       </div>
     </div>
+    <!-- Yes/No modal-->
+    <div class="modal_overlay" id="taskManageMobileModal">
+      <div class="modal">
+        <button class="assignTaskDoing" id="assignTaskDoing">Move task to your <b>"Doing"</b> list</button>
+        <button class="assignTaskDone" id="assignTaskDone">Move task to your <b>"Done"</b> list</button>
+        <button class="assignTaskToDo" id="assignTaskToDo">Move task to your <b>"To Do"</b> list</button>
+        <span class="closeModal" id="closeTaskManage"><img src="/x.svg" alt=""></span>
+      </div>
+    </div>
     <div class="slots">
       <div class="slot">
-        <h2>To do</h2>
+        <h2>To Do</h2>
         <div class="inner_slot" id="slot_todo">
-          <!-- Cia slotai talpinasi -->
+          <!-- Slots go here talpinasi -->
         </div>
       </div>
       <div class="slot">

@@ -1,49 +1,54 @@
-var tasks;
 const sounds = ["sound.mp3", "sound1.mp3", "sound2.mp3", "sound3.mp3"];
-var innerSlots = Array.from(document.querySelectorAll(".inner_slot"));
-var toDoContainer = document.getElementById("slot_todo");
-var newEntry = document.getElementById("new");
-var confirm = document.getElementById("confirm");
-var slots = document.querySelector(".slots");
-var editTask = document.getElementById("edit");
-var editmodal = document.getElementById("trinti_modalas");
-var doneContainer = document.getElementById("slot_done");
-var duomenuModal = document.getElementById("duomenu_modalas");
-var closeModal = document.getElementsByClassName("closeModal");
-var closeEditModal = document.getElementsByClassName("closeEditModal");
+const innerSlots = Array.from(document.querySelectorAll(".inner_slot"));
+const toDoContainer = document.getElementById("slot_todo");
+const doingContainer = document.getElementById("slot_doing");
+const newEntry = document.getElementById("new");
+const confirm = document.getElementById("confirm");
+const slots = document.querySelector(".slots");
+const editTask = document.getElementById("edit");
+const editModal = document.getElementById("editTaskModal");
+const doneContainer = document.getElementById("slot_done");
+const newTaskModal = document.getElementById("newTaskModal");
+const closeModal = document.getElementsByClassName("closeModal");
+const closeEditModal = document.getElementsByClassName("closeEditModal");
+// Task manage variables for mobile
+const taskkManageModal = document.getElementById("taskManageMobileModal");
+const closeTaskManage = document.getElementById("closeTaskManage");
 
-console.log(editmodal);
 // New entry
 
 newEntry.addEventListener("click", () => {
-  duomenuModal.classList.add("modal_overlay--active");
+  newTaskModal.classList.add("modal_overlay--active");
   document.getElementById("taskNotes").value = "";
 });
 
-var deleteButton, editButton, p;
+let deleteButton, editButton, paragraphm, manageButton, tasks, taskManageButtons;
 
 confirm.addEventListener("click", () => {
-  var taskNotes = document.getElementById("taskNotes").value;
+  let taskNotes = document.getElementById("taskNotes").value;
   console.log(taskNotes);
-  var card = document.createElement("div");
+  let card = document.createElement("div");
   deleteButton = document.createElement("button");
   deleteButton.innerText = "";
   deleteButton.classList.add("delete");
   editButton = document.createElement("button");
   editButton.classList.add("edit");
-  p = document.createElement("p");
-
+  paragraph = document.createElement("p");
+  manageButton = document.createElement("button");
+  manageButton.classList.add("task__manage");
   card.className += "task";
   card.setAttribute("draggable", "true");
   card.setAttribute("data-element", Math.random() * 10);
-  p.className += "task__text";
-  p.innerText = taskNotes;
+  paragraph.className += "task__text";
+  paragraph.innerText = taskNotes;
   toDoContainer.appendChild(card);
   card.appendChild(deleteButton);
   card.appendChild(editButton);
-  card.appendChild(p);
-  duomenuModal.classList.remove("modal_overlay--active");
-  console.log(tasks);
+  card.appendChild(paragraph);
+  card.appendChild(manageButton);
+  newTaskModal.classList.remove("modal_overlay--active");
+  tasks = document.querySelectorAll(".task");
+  taskManageButtons = document.querySelectorAll(".task__manage");
 });
 
 //drag start
@@ -65,7 +70,7 @@ slots.addEventListener("dblclick", (e) => {
   }
 });
 
-//Trinti
+//delete
 slots.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentNode.remove();
@@ -73,10 +78,10 @@ slots.addEventListener("click", (e) => {
 });
 
 // Edit
-var editp;
+let editp;
 slots.addEventListener("click", (e) => {
   if (e.target.classList.contains("edit")) {
-    editmodal.classList.add("modal_overlay--active");
+    editModal.classList.add("modal_overlay--active");
     editp = e.target.parentNode.querySelector("p");
     document.getElementById("editNotes").value = editp.innerText;
   } else {
@@ -85,22 +90,33 @@ slots.addEventListener("click", (e) => {
 });
 
 editTask.addEventListener("click", (e) => {
-  var editNotes = document.getElementById("editNotes").value;
+  let editNotes = document.getElementById("editNotes").value;
   editp.innerText = editNotes;
-  editmodal.classList.remove("modal_overlay--active");
+  editModal.classList.remove("modal_overlay--active");
 });
 
 //Edit end
 
+// Manage task mobile
+let taskKey;
+slots.addEventListener("click", (e) => {
+  if (e.target.classList.contains("task__manage")) {
+    taskkManageModal.classList.add("modal_overlay--active");
+    console.log(e.target.parentNode.getAttribute("data-element"));
+    taskKey = e.target.parentNode.getAttribute("data-element");
+    console.log(taskKey);
+  }
+});
+
 // close modal of new text
 
 closeModal[0].addEventListener("click", (e) => {
-  console.log(editmodal);
-  duomenuModal.classList.remove("modal_overlay--active");
+  console.log(editModal);
+  newTaskModal.classList.remove("modal_overlay--active");
 });
 // Close modal of edit
 closeEditModal[0].addEventListener("click", () => {
-  editmodal.classList.remove("modal_overlay--active");
+  editModal.classList.remove("modal_overlay--active");
 });
 // Drag over and drop
 innerSlots.forEach((item, index) => {
@@ -114,10 +130,37 @@ innerSlots.forEach((item, index) => {
   });
   item.addEventListener("drop", function (e) {
     // Pasiemam dragstart eventa isiminta elemento id
-    var elementoAttr = e.dataTransfer.getData("text");
-    var element = document.querySelector(`[data-element="${elementoAttr}"]`);
+    let elementoAttr = e.dataTransfer.getData("text");
+    let element = document.querySelector(`[data-element="${elementoAttr}"]`);
     e.target.appendChild(element);
     // Nurodom, kad galim ideti elementa
     e.preventDefault();
   });
+});
+
+// Close task maanage
+closeTaskManage.addEventListener("click", () => {
+  taskkManageModal.classList.remove("modal_overlay--active");
+});
+// Move task
+taskkManageModal.addEventListener("click", (e) => {
+  if (e.target.classList.contains("assignTaskDoing")) {
+    let element = document.querySelector(`[data-element="${taskKey}"]`);
+    doingContainer.appendChild(element);
+    taskkManageModal.classList.remove("modal_overlay--active");
+  }
+});
+taskkManageModal.addEventListener("click", (e) => {
+  if (e.target.classList.contains("assignTaskDone")) {
+    let element = document.querySelector(`[data-element="${taskKey}"]`);
+    doneContainer.appendChild(element);
+    taskkManageModal.classList.remove("modal_overlay--active");
+  }
+});
+taskkManageModal.addEventListener("click", (e) => {
+  if (e.target.classList.contains("assignTaskToDo")) {
+    let element = document.querySelector(`[data-element="${taskKey}"]`);
+    toDoContainer.appendChild(element);
+    taskkManageModal.classList.remove("modal_overlay--active");
+  }
 });
