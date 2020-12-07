@@ -115,7 +115,7 @@ h1 span {
   bottom: 20px;
   right: 15px;
   border: none;
-  background: url("manage.svg");
+  background: url(/img/manage.svg);
   background-size: cover;
   background-position: center;
   outline: none;
@@ -169,7 +169,7 @@ h1 span {
 }
 
 .delete {
-  background: url(bin.svg);
+  background: url(/img/bin.svg);
   background-size: cover;
   background-position: center;
   border: none;
@@ -189,7 +189,7 @@ h1 span {
   -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1;
-  background: url(penc.svg);
+  background: url(/img/penc.svg);
   background-size: cover;
   background-position: center;
   border: none;
