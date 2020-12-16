@@ -89,7 +89,7 @@ h1 span {
 .task {
   background: #c9c883;
   font-size: 20px;
-  padding: 20px 15px 18px;
+  padding: 15px;
   border-radius: 10px;
   margin-bottom: 10px;
   cursor: -webkit-grab;
@@ -97,12 +97,13 @@ h1 span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   position: relative;
   -webkit-box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
           box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
@@ -125,6 +126,31 @@ h1 span {
 @media screen and (max-width: 768px) {
   .task__manage {
     display: block;
+  }
+}
+
+.task__heading {
+  font-style: italic;
+  color: #fff;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 1rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .task__heading {
+    font-size: 24px;
+  }
+}
+
+.task__text {
+  width: 60%;
+}
+
+@media screen and (max-width: 768px) {
+  .task__text {
+    font-size: 18px;
+    width: 85%;
   }
 }
 
@@ -177,12 +203,19 @@ h1 span {
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 15px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .delete {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .edit {
@@ -197,12 +230,19 @@ h1 span {
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   position: absolute;
   top: 10px;
-  right: 50px;
+  right: 65px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .edit {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .modal {
@@ -224,12 +264,40 @@ h1 span {
   right: 0;
   margin: auto;
   background-color: #196eb3;
-  height: 300px;
+  height: 400px;
   border-radius: 15px;
   width: 90%;
   max-width: 500px;
   padding: 40px;
   margin-top: 60px;
+}
+
+.modal input {
+  outline: none;
+  font-size: 22px;
+  width: 240px;
+  border-radius: 15px;
+  height: 30px;
+}
+
+.modal input::-webkit-input-placeholder {
+  padding-left: 15px;
+  font-style: italic;
+}
+
+.modal input:-ms-input-placeholder {
+  padding-left: 15px;
+  font-style: italic;
+}
+
+.modal input::-ms-input-placeholder {
+  padding-left: 15px;
+  font-style: italic;
+}
+
+.modal input::placeholder {
+  padding-left: 15px;
+  font-style: italic;
 }
 
 .plus {
@@ -286,12 +354,13 @@ h1 span {
 }
 
 .modal label {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 700;
   color: #fff;
 }
 
 .modal textarea {
+  margin-top: 0.5rem;
   outline: none;
   border-radius: 15px;
   font-size: 18px;
@@ -328,10 +397,6 @@ h1 span {
 .closeEditModal img {
   width: 30px;
   height: 30px;
-}
-
-.task__text {
-  width: 80%;
 }
 
 textarea {
